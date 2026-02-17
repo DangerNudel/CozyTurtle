@@ -1,0 +1,15 @@
+[Unit]
+Description=System Update Check
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/script.sh
+# Restart always ensures that whether it fails or exits normally, it comes back
+Restart=always
+RestartSec=5
+# Ensures the process isn't killed by systemd's cleanup too quickly
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
