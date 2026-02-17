@@ -1,0 +1,20 @@
+To upgrade a basic reverse shell into a fully stable, interactive TTY (with tab completion, arrow keys, and ctrl+c support), you must transition from a simple pipe to a Pseudo-Terminal (PTY).
+1. The "Python Upgrade" (Most Reliable)
+Once your initial connection is established, run this command inside the shell to spawn a PTY:
+bash
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+Use code with caution.
+
+Note: Use python if python3 isn't found, especially on Debian 9. Python pty documentation
+2. The STTY "Raw" Maneuver (Full Interactivity)
+To get features like clear, nano, and window resizing, follow these steps exactly after spawning the Python PTY:
+Background the shell: Press Ctrl+Z.
+Set your local terminal to raw mode:
+bash
+stty raw -echo; fg
+Use code with caution.
+
+Reset the remote terminal: Type reset and hit enter. (It may look invisible as you type it).
+Export terminal variables:
+bash
+export TERM=xterm-256color
